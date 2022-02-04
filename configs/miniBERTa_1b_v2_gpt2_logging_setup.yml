@@ -1,0 +1,12 @@
+{
+  "save": "/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1b_v2/gpt2/checkpoints_4/",
+  "load": "/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1b_v2/gpt2/checkpoints_4/",
+  "checkpoint_validation_with_forward_pass": False,
+  
+  "tensorboard-dir": "tensorboard",
+  "log-dir": "logs",
+  "use_wandb": True,
+  "wandb_host": "https://api.wandb.ai",
+  "wandb_project": "miniberta_1B_v2",
+  "wandb_group": "gpt2",
+}
