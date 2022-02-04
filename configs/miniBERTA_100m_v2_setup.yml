@@ -15,7 +15,7 @@
   #"weight_by_num_documents": false,
   # "weighted_sampler_alpha": 0.3,
 
-  "vocab-file": "data/gpt2-vocab.json",
-  "merge-file": "data/gpt2-merges.txt",
+  "vocab-file": "/om/user/ehoseini/MyData/miniBERTa_training/gpt2-vocab.json",
+  "merge-file": "/om/user/ehoseini/MyData/miniBERTa_training/gpt2-merges.txt",
 
 }
