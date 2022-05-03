@@ -14,4 +14,4 @@ conda activate gpt_neox
 echo $(which python)
 cd /om/user/ehoseini/gpt-neox/
 
-python ./deepy.py train.py -d configs distilgpt2.yml miniBERTA_1m_v2_setup.yml miniBERTa_1m_v2_distilgpt2_logging_setup.yml
+python ./deepy.py train.py -d configs distilgpt2.yml miniBERTA_1m_v2_setup.yml miniBERTa_1m_v2_distilgpt2_logging_setup.ymlss
