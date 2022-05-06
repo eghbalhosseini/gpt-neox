@@ -1,6 +1,6 @@
 {
-  "save": "/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_5/",
-  "load": "/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_5/",
+  "save": "/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/",
+  "load": "/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/",
   "checkpoint_validation_with_forward_pass": False,
   
   "tensorboard-dir": "tensorboard",
@@ -10,3 +10,4 @@
   "wandb_project": "miniberta_100M_v2",
   "wandb_group": "gpt2",
 }
+
