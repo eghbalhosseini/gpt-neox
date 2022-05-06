@@ -16,48 +16,8 @@ from tqdm import tqdm
 import seaborn as sns
 from glob import glob
 
-from megatron.utils import (
-    Timers,
-    init_wandb,
-    get_ltor_masks_and_position_ids,
-    reduce_losses,
-)
-import json
-
-from megatron import print_rank_0, mpu
-from megatron.model import (
-    GPT2ModelPipe,
-    SoftEmbedding,
-    get_params_for_weight_decay_optimization,
-)
-from megatron.neox_arguments.arguments import (
-    NeoXArgsModel,
-    NeoXArgsTokenizer,
-    NeoXArgsTraining,
-    NeoXArgsParallelism,
-    NeoXArgsLogging,
-    NeoXArgsOther,
-    NeoXArgsTextgen,
-    NeoXArgsOptimizer,
-    NeoXArgsLRScheduler,
-    ATTENTION_TYPE_CHOICES,
-)
 
 
-BASE_CLASSES = [
-    NeoXArgsModel,
-    NeoXArgsLRScheduler,
-    NeoXArgsOptimizer,
-    NeoXArgsTokenizer,
-    NeoXArgsTraining,
-    NeoXArgsParallelism,
-    NeoXArgsLogging,
-    NeoXArgsTextgen,
-    NeoXArgsOther,
-]
-
-from megatron.neox_arguments import NeoXArgs
-# make a mock neoxarg set
 
 config=GPT2Config.from_pretrained('gpt2')
 model=GPT2Model(config=config)
@@ -65,7 +25,8 @@ state_dict=model.state_dict()
 
 model_trained=GPT2Model.from_pretrained('gpt2')
 state_dict_trained=model_trained.state_dict()
-wpe1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step1/layer_02-model_00-model_states.pt')
+
+wpe1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100//layer_02-model_00-model_states.pt')
 wpe30=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step30/layer_00-model_00-model_states.pt')
 wpe_trained=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1b_v2/gpt2/checkpoints_4/global_step152500/layer_00-model_00-model_states.pt')
 a1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step1/layer_02-model_00-model_states.pt')
@@ -201,7 +162,7 @@ def permute_mat(mat):
     mat_perm = torch.reshape(mat_flat_rnd, mat.shape)
     return mat_perm
 
-layer_files=glob('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step1/*model_00-model_states.pt')
+layer_files=glob('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100/*model_00-model_states.pt')
 
 layer_id=[re.findall('layer_\d+',x) for x in layer_files]
 layer_id=[int(x[0].replace('layer_','')) for x in layer_id]
