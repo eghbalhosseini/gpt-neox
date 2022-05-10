@@ -26,13 +26,16 @@ state_dict=model.state_dict()
 model_trained=GPT2Model.from_pretrained('gpt2')
 state_dict_trained=model_trained.state_dict()
 
-wpe1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100//layer_02-model_00-model_states.pt')
-wpe30=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step30/layer_00-model_00-model_states.pt')
+'/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100/mp_rank_00_model_states.pt'
+/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step200/
+
+wpe1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100//layer_07-model_00-model_states.pt')
+wpe2=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step200/layer_07-model_00-model_states.pt')
 wpe_trained=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1b_v2/gpt2/checkpoints_4/global_step152500/layer_00-model_00-model_states.pt')
 a1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step1/layer_02-model_00-model_states.pt')
 a30=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step30/layer_02-model_00-model_states.pt')
 a_trained=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1b_v2/gpt2/checkpoints_4/global_step152500/layer_02-model_00-model_states.pt')
-
+mp_rank=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100/mp_rank_00_model_states.pt')
 
 # scratch
 layer_keys=['wte.weight', 'wpe.weight']
@@ -63,12 +66,9 @@ for idx,l_key in tqdm(enumerate(wpe_keys)):
     ax = None
     ax = plt.subplot(4, 3, idx+1, frameon=True, sharex=ax)
     b = np.squeeze(np.reshape(wpe1[l_key].numpy(), (1, -1)))
-    plt.hist(b, bins=50, alpha=1, histtype='step', density=True)
-    #b1 = np.squeeze(np.reshape(wpe30[l_key].numpy(), (1, -1)))
-    #plt.hist(b1, bins=50, alpha=.5, density=True)
-    #b2 = np.squeeze(np.reshape(wpe_trained[l_key].numpy(), (1, -1)))
-    #plt.hist(b1, bins=50, alpha=.5, density=True,color='r')
-    #sns.histplot(b,bins=50)
+    plt.hist(b, bins=50, alpha=1, histtype='step', density=False)
+    b1 = np.squeeze(np.reshape(wpe2[l_key].numpy(), (1, -1)))
+    plt.hist(b1, bins=50, alpha=.5, density=False)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
     ax.set_title(l_key)
@@ -104,9 +104,9 @@ for idx,l_key in tqdm(enumerate(a1_k)):
     ax = None
     ax = plt.subplot(4, 3, idx+1, frameon=True, sharex=ax)
     b = np.squeeze(np.reshape(a1[l_key].numpy(), (1, -1)))
-    plt.hist(b, bins=50, alpha=1, histtype='step', density=True)
+    plt.hist(b, bins=50, alpha=1, histtype='step', density=False)
     b1 = np.squeeze(np.reshape(a_trained[l_key].numpy(), (1, -1)))
-    plt.hist(b1, bins=50, alpha=.5, density=True)
+    plt.hist(b1, bins=50, alpha=.5, density=False)
     #sns.histplot(b,bins=50)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -124,9 +124,9 @@ for idx,l_key in tqdm(enumerate(layer_keys)):
     ax = None
     ax = plt.subplot(4, 4, idx+1, frameon=True, sharex=ax)
     b = np.squeeze(np.reshape(state_dict[l_key].numpy(), (1, -1)))
-    plt.hist(b, bins=50, alpha=1, histtype='step',density=True)
+    plt.hist(b, bins=50, alpha=1, histtype='step',density=False)
     b1 = np.squeeze(np.reshape(state_dict_trained[l_key].numpy(), (1, -1)))
-    plt.hist(b1, bins=50,alpha=.5,density=True)
+    plt.hist(b1, bins=50,alpha=.5,density=False)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
     ax.set_title(l_key)
@@ -186,3 +186,8 @@ for file in tqdm(layer_files_sort):
 
 for key in all_keys:
     print(key)
+
+
+for key in mp_rank.keys():
+    print(key)
+    print(mp_rank[key])
