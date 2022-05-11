@@ -1,19 +1,8 @@
-import copy
-import re
-from datetime import datetime
-from functools import partial
-
-import math
-import sys
 import matplotlib.pyplot as plt
-import numpy as np
 import torch
-import deepspeed
 import numpy as np
-import transformers
 from transformers import GPT2Model, GPT2Config
 from tqdm import tqdm
-import seaborn as sns
 from glob import glob
 
 
@@ -29,8 +18,8 @@ state_dict_trained=model_trained.state_dict()
 '/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100/mp_rank_00_model_states.pt'
 /om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step200/
 
-wpe1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100//layer_07-model_00-model_states.pt')
-wpe2=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step200/layer_07-model_00-model_states.pt')
+wpe1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_6/global_step100//layer_12-model_00-model_states.pt')
+wpe2=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_6/global_step101/layer_12-model_00-model_states.pt')
 wpe_trained=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1b_v2/gpt2/checkpoints_4/global_step152500/layer_00-model_00-model_states.pt')
 a1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step1/layer_02-model_00-model_states.pt')
 a30=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_1m_v2/gpt2/checkpoints_0/global_step30/layer_02-model_00-model_states.pt')
@@ -191,3 +180,14 @@ for key in all_keys:
 for key in mp_rank.keys():
     print(key)
     print(mp_rank[key])
+
+
+''' '''
+
+from megatron.model import (
+    GPT2ModelPipe,
+    SoftEmbedding,
+    get_params_for_weight_decay_optimization,
+)
+
+from tools.temp_neox_args import NeoXArgsAll
