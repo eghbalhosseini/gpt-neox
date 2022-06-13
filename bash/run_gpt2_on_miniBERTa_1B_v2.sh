@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=mini
-#SBATCH --time=2-12:00:00
-#SBATCH --gres=gpu:RTXA6000:4
+#SBATCH --time=6-12:00:00
+#SBATCH --gres=gpu:RTXA6000:3
 #SBATCH --ntasks=1
-#SBATCH --mem=120G
+#SBATCH --mem=180G
 #SBATCH --mail-type=ALL
 #SBATCH --exclude node017,node018
 #SBATCH --mail-user=ehoseini@mit.edu

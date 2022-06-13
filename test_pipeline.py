@@ -16,7 +16,7 @@ model_trained=GPT2Model.from_pretrained('gpt2')
 state_dict_trained=model_trained.state_dict()
 
 '/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step100/mp_rank_00_model_states.pt'
-/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_0/global_step200/
+
 
 wpe1=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_6/global_step100//layer_12-model_00-model_states.pt')
 wpe2=torch.load('/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_6/global_step101/layer_12-model_00-model_states.pt')
@@ -191,3 +191,60 @@ from megatron.model import (
 )
 
 from tools.temp_neox_args import NeoXArgsAll
+from megatron.initialize import initialize_megatron
+from pathlib import Path
+import glob
+import os
+import yaml
+import numpy as np
+from megatron import print_rank_0, mpu
+import json
+from megatron.model.init_functions import get_init_methods
+from megatron.training import pretrain
+config_dir='/om/user/ehoseini/MyData/miniBERTa_training/miniBERTa_100m_v2/gpt2/checkpoints_6/global_step100/configs/'
+config_path = Path(config_dir, '*.yml')
+config_files = glob.glob(str(config_path))
+if len(config_files) > 0:
+    config = {}
+    for filename in config_files:
+        with open(os.path.join(config_dir, filename)) as f:
+            data = f.read()
+        yaml_dict = yaml.load(data, Loader=yaml.CLoader)
+        config.update(yaml_dict)
+    # figure out activation
+    p=list(config.keys())
+    p=[x.replace('-','_') for x in p]
+    d = dict(zip(p, list(config.values())))
+
+vocab_file = Path('/om/user/ehoseini/gpt-neox/data/gpt2-vocab.json')
+with open(str(vocab_file), 'rb')  as vocab:
+    vocab_data = vocab.read()
+    vocab_size = len(json.loads(vocab_data))
+
+d['attention_config']=list(np.repeat('global', 12))
+d['rank']=0
+d['fp32_allreduce']=False
+d['padded_vocab_size']=vocab_size
+d['params_dtype']='fp16'
+config_Neo = NeoXArgsAll()
+config_Neo.update_values(d)
+
+
+
+config_Neo.rank
+
+config_Neo.padded_vocab_size
+
+get_init_methods(config_Neo)
+
+config_Neo.use_cpu_initialization=True
+
+initialize_megatron(neox_args=config_Neo)
+
+z = GPT2ModelPipe(
+    neox_args=config_Neo,
+    num_tokentypes=0,
+    parallel_output=True,
+    topology=mpu.get_topology(),
+    use_cache=False,
+)

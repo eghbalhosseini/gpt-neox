@@ -971,3 +971,7 @@ class NeoXArgsAll(NeoXArgsTemplate):
     """
     Tasks to evaluate on using lm_eval_harness
     """
+
+    fp32_allreduce: bool = False
+
+    params_dtype: str = None
