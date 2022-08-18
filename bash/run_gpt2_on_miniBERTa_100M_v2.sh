@@ -1,7 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=mini
 #SBATCH --time=2-12:00:00
-#SBATCH --gres=gpu:RTXA6000:2
+####SBATCH --gres=gpu:A100:8
+#SBATCH --constraint=ampere
 #SBATCH --ntasks=1
 #SBATCH --mem=120G
 #SBATCH --mail-type=ALL
@@ -15,3 +16,5 @@ echo $(which python)
 cd /om/user/ehoseini/gpt-neox/
 
 python ./deepy.py train.py -d configs gpt2.yml miniBERTA_100m_v2_setup.yml miniBERTa_100m_v2_gpt2_logging_setup.yml
+
+#### --gres=gpu:RTXA6000:2
