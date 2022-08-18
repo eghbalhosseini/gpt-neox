@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=mini
 #SBATCH --time=2-12:00:00
-####SBATCH --gres=gpu:A100:4
+#SBATCH --gres=gpu:A100:4
 #SBATCH --ntasks=1
 #SBATCH --mem=120G
 #SBATCH --mail-type=ALL
