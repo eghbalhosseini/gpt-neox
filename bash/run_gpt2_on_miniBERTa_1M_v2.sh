@@ -2,9 +2,9 @@
 #SBATCH --job-name=mini
 #SBATCH --time=2-12:00:00
 #SBATCH --ntasks=1
-#SBATCH --mem=64G
+#SBATCH --mem=120G
 #SBATCH --nodelist=node105
-#SBATCH --gres=gpu:A100:2
+#SBATCH --gres=gpu:A100:4
 #SBATCH --mail-type=ALL
 #SBATCH --exclude node017,node018
 #SBATCH --mail-user=ehoseini@mit.edu
