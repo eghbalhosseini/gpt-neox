@@ -1,6 +1,6 @@
 {
-  "save": "/om2/user/ehoseini/MyData/miniBERTa_training/miniBERTa_10m_v2/gpt2/checkpoints_1/",
-  "load": "/om2/user/ehoseini/MyData/miniBERTa_training/miniBERTa_10m_v2/gpt2/checkpoints_1/",
+  "save": "/om2/user/ehoseini/MyData/miniBERTa_training/miniBERTa_10m_v2/gpt2/checkpoints_2/",
+  "load": "/om2/user/ehoseini/MyData/miniBERTa_training/miniBERTa_10m_v2/gpt2/checkpoints_2/",
   "checkpoint_validation_with_forward_pass": False,
   
   "tensorboard-dir": "tensorboard",
