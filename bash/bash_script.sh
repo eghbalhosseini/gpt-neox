@@ -2,8 +2,8 @@ export PIP_DOWNLOAD_CACHE=/om2/user/ehoseini/.pip/cache
 export XDG_CACHE_HOME=/om2/user/ehoseini/st
 export SINGULARITY_CACHEDIR=/om2/user/ehoseini/st
 export OMPI_MCA_opal_cuda_support=true
-export CUDA_HOME=/cm/shared/openmind/cuda/11.3/
-module load openmind/cuda/11.3
+export CUDA_HOME=/cm/shared/openmind/cuda/11.1/
+module load openmind/cuda/11.1
 module load openmind/gcc/5.3.0
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
 # >>> conda initialize >>>
