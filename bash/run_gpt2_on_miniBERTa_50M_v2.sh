@@ -9,7 +9,7 @@
 #SBATCH --mail-user=ehoseini@mit.edu
 #SBATCH --partition=evlab
 
-. ~/.bash_profile
+. bash_script.sh
 conda activate gpt_neox
 echo $(which python)
 cd /om/user/ehoseini/gpt-neox/
